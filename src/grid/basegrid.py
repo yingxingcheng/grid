@@ -144,11 +144,12 @@ class Grid:
 
         """
         center = np.asarray(center)
-        if center.shape != self._points.shape[1:]:
-            raise ValueError(
-                "Argument center has the wrong shape \n"
-                f"center.shape: {center.shape}, points.shape: {self._points.shape}"
-            )
+        if self._points.ndim > 1:
+            if center.shape != self._points.shape[1:]:
+                raise ValueError(
+                    "Argument center has the wrong shape \n"
+                    f"center.shape: {center.shape}, points.shape[1:]: {self._points.shape[1:]}"
+                )
         if radius < 0:
             raise ValueError(f"Negative radius: {radius}")
         if not (np.isfinite(radius) or radius == np.inf):
